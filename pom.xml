@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>net.samsarasoftware</groupId>
+		<artifactId>net.samsarasoftware</artifactId>
+		<version>0.2.0-SNAPSHOT</version>
+		<relativePath>../net.samsarasoftware/</relativePath>
+	</parent>
+	
+	<groupId>net.samsarasoftware</groupId>
+	<artifactId>net.samsarasoftware.maven2uml</artifactId>
+	<packaging>jar</packaging>
+	<version>0.2.0-SNAPSHOT</version>
+
+	<properties>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+	</properties>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0.html</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.0.2</version>
+				<executions>
+					<execution>
+						<id>copy licenses</id>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<phase>generate-resources</phase>
+						<configuration>
+							<resources>
+								<resource>
+									<directory>${basedir}/../net.samsarasoftware/src/license/</directory>
+									<include>THIRD-PARTY.properties</include>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+							<outputDirectory>src/license</outputDirectory>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy profiles</id>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<phase>generate-resources</phase>
+						<configuration>
+							<resources>
+								<resource>
+									<directory>${basedir}/profiles/</directory>
+								</resource>
+							</resources>
+							<outputDirectory>target/classes/profiles</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<version>1.12</version>
+				<executions>
+					<execution>
+						<id>first</id>
+						<goals>
+							<goal>update-file-header</goal>
+						</goals>
+						<phase>process-sources</phase>
+						<configuration>
+							<extraExtensions>
+								<ocl>java</ocl>
+								<uml>xml</uml>
+								<di>xml</di>
+								<notation>xml</notation>
+							</extraExtensions>
+							<licenseName>apache_v2</licenseName>
+							<roots>
+								<root>src</root>
+								<root>profiles</root>
+								<root>constraints</root>
+							</roots>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<archive>
+						<manifest>
+							<mainClass>net.samsarasoftware.maven2uml.Maven2Uml</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
