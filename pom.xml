@@ -2,14 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<groupId>net.samsarasoftware</groupId>
 		<artifactId>net.samsarasoftware</artifactId>
 		<version>0.2.0-SNAPSHOT</version>
 		<relativePath>../net.samsarasoftware/</relativePath>
 	</parent>
-	
+
 	<groupId>net.samsarasoftware</groupId>
 	<artifactId>net.samsarasoftware.maven2uml</artifactId>
 	<packaging>jar</packaging>
@@ -43,23 +43,6 @@
 				<version>3.0.2</version>
 				<executions>
 					<execution>
-						<id>copy licenses</id>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<phase>generate-resources</phase>
-						<configuration>
-							<resources>
-								<resource>
-									<directory>${basedir}/../net.samsarasoftware/src/license/</directory>
-									<include>THIRD-PARTY.properties</include>
-									<filtering>true</filtering>
-								</resource>
-							</resources>
-							<outputDirectory>src/license</outputDirectory>
-						</configuration>
-					</execution>
-					<execution>
 						<id>copy profiles</id>
 						<goals>
 							<goal>copy-resources</goal>
@@ -72,36 +55,6 @@
 								</resource>
 							</resources>
 							<outputDirectory>target/classes/profiles</outputDirectory>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
-
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>license-maven-plugin</artifactId>
-				<version>1.12</version>
-				<executions>
-					<execution>
-						<id>first</id>
-						<goals>
-							<goal>update-file-header</goal>
-						</goals>
-						<phase>process-sources</phase>
-						<configuration>
-							<extraExtensions>
-								<ocl>java</ocl>
-								<uml>xml</uml>
-								<di>xml</di>
-								<notation>xml</notation>
-							</extraExtensions>
-							<licenseName>apache_v2</licenseName>
-							<roots>
-								<root>src</root>
-								<root>profiles</root>
-								<root>constraints</root>
-							</roots>
 						</configuration>
 					</execution>
 				</executions>
@@ -130,4 +83,67 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>refresh-licenses</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-resources-plugin</artifactId>
+						<version>3.0.2</version>
+						<executions>
+							<execution>
+								<id>copy licenses</id>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<phase>generate-resources</phase>
+								<configuration>
+									<resources>
+										<resource>
+											<directory>${basedir}/../net.samsarasoftware/src/license/</directory>
+											<include>THIRD-PARTY.properties</include>
+											<filtering>true</filtering>
+										</resource>
+									</resources>
+									<outputDirectory>src/license</outputDirectory>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>license-maven-plugin</artifactId>
+						<version>1.12</version>
+						<executions>
+							<execution>
+								<id>first</id>
+								<goals>
+									<goal>update-file-header</goal>
+								</goals>
+								<phase>process-sources</phase>
+								<configuration>
+									<extraExtensions>
+										<ocl>java</ocl>
+										<uml>xml</uml>
+										<di>xml</di>
+										<notation>xml</notation>
+									</extraExtensions>
+									<licenseName>apache_v2</licenseName>
+									<roots>
+										<root>src</root>
+									</roots>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
