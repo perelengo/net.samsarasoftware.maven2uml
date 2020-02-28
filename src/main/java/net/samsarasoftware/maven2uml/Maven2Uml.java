@@ -460,7 +460,7 @@ public class Maven2Uml {
 
 
 	private void processTransitiveDependencies( Node dependencyNode,Node projectNode) throws Exception {
-		//FIXME Aquí hauriem de mirar quina versió té d'entre: La pròpia, la del parent, la de managed dependencies.
+		//FIXME Aqu? hauriem de mirar quina versiÃ³ tÃ© d'entre: La prÃ²pia, la del parent, la de managed dependencies.
 		
 		String m2RepoPath=System.getenv().get(M2_REPO);
     	String groupId=getGroupId(dependencyNode);
