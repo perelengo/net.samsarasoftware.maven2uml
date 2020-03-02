@@ -125,7 +125,7 @@
 	</profiles>
 
 	<scm>
-		<developerConnection>scm:git:https://github.com/perelengo/net.samsarasoftware.m2m.qvto.git</developerConnection>
+		<developerConnection>scm:git:https://github.com/perelengo/net.samsarasoftware.maven2uml.git</developerConnection>
 		<tag>net.samsarasoftware.maven2uml-0.2.0</tag>
 	</scm>
 	<distributionManagement>
